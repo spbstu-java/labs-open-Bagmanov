@@ -1,5 +1,5 @@
-
 import HeroStrategies.MoveStrategy.*;
+import java.util.Scanner;
 
 public class Main {
 
@@ -9,26 +9,65 @@ public class Main {
         FlyingStrategy flying = new FlyingStrategy(25.0f);
 
         Hero hero = new Hero(new float[]{0, 0}, walking);
+        Scanner scanner = new Scanner(System.in);
 
         System.out.println("=== ДЕМОНСТРАЦИЯ ПАТТЕРНА СТРАТЕГИЯ ===\n");
+        System.out.println("Доступные команды:");
+        System.out.println("1 - Пешком");
+        System.out.println("2 - На лошади");
+        System.out.println("3 - Полетом");
+        System.out.println("4 - Переместиться в точку");
+        System.out.println("5 - Показать текущее состояние");
+        System.out.println("0 - Выход");
+        System.out.println();
 
-        System.out.println("1. Перемещение пешком:");
-        hero.move(new float[]{10, 10});
+        boolean running = true;
+        while (running) {
+            System.out.print("Введите команду: ");
+            int command = scanner.nextInt();
 
-        hero.setMoveStrategy(horseRiding);
-        System.out.println("2. Перемещение на лошади:");
-        hero.move(new float[]{20, 5});
+            switch (command) {
+                case 1:
+                    hero.setMoveStrategy(walking);
+                    System.out.println("Установлен способ передвижения: Пешком\n");
+                    break;
 
-        hero.setMoveStrategy(flying);
-        System.out.println("3. Перемещение полетом:");
-        hero.move(new float[]{50, 30});
+                case 2:
+                    hero.setMoveStrategy(horseRiding);
+                    System.out.println("Установлен способ передвижения: На лошади\n");
+                    break;
 
-        hero.setMoveStrategy(walking);
-        System.out.println("4. Снова пешком:");
-        hero.move(new float[]{55, 32});
+                case 3:
+                    hero.setMoveStrategy(flying);
+                    System.out.println("Установлен способ передвижения: Полетом\n");
+                    break;
 
-        System.out.println("Текущая позиция героя: (" +
-                hero.getPosition()[0] + "," + hero.getPosition()[1] + ")");
-        System.out.println("Текущая скорость передвижения: " + hero.getCurrentMoveSpeed());
+                case 4:
+                    System.out.print("Введите координату X: ");
+                    float x = scanner.nextFloat();
+                    System.out.print("Введите координату Y: ");
+                    float y = scanner.nextFloat();
+                    hero.move(new float[]{x, y});
+                    break;
+
+                case 5:
+                    System.out.println("Текущая позиция героя: (" +
+                            hero.getPosition()[0] + "," + hero.getPosition()[1] + ")");
+                    System.out.println("Текущая скорость передвижения: " + hero.getCurrentMoveSpeed());
+                    System.out.println();
+                    break;
+
+                case 0:
+                    running = false;
+                    System.out.println("Выход из программы...");
+                    break;
+
+                default:
+                    System.out.println("Неизвестная команда! Попробуйте снова.\n");
+                    break;
+            }
+        }
+
+        scanner.close();
     }
 }
