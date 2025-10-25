@@ -24,47 +24,53 @@ public class Main {
         boolean running = true;
         while (running) {
             System.out.print("Введите команду: ");
-            int command = scanner.nextInt();
+            if (scanner.hasNextInt()) {
+                int command = scanner.nextInt();
+                scanner.nextLine();
 
-            switch (command) {
-                case 1:
-                    hero.setMoveStrategy(walking);
-                    System.out.println("Установлен способ передвижения: Пешком\n");
-                    break;
+                switch (command) {
+                    case 1:
+                        hero.setMoveStrategy(walking);
+                        System.out.println("Установлен способ передвижения: Пешком\n");
+                        break;
 
-                case 2:
-                    hero.setMoveStrategy(horseRiding);
-                    System.out.println("Установлен способ передвижения: На лошади\n");
-                    break;
+                    case 2:
+                        hero.setMoveStrategy(horseRiding);
+                        System.out.println("Установлен способ передвижения: На лошади\n");
+                        break;
 
-                case 3:
-                    hero.setMoveStrategy(flying);
-                    System.out.println("Установлен способ передвижения: Полетом\n");
-                    break;
+                    case 3:
+                        hero.setMoveStrategy(flying);
+                        System.out.println("Установлен способ передвижения: Полетом\n");
+                        break;
 
-                case 4:
-                    System.out.print("Введите координату X: ");
-                    float x = scanner.nextFloat();
-                    System.out.print("Введите координату Y: ");
-                    float y = scanner.nextFloat();
-                    hero.move(new float[]{x, y});
-                    break;
+                    case 4:
+                        System.out.print("Введите координату X: ");
+                        float x = scanner.nextFloat();
+                        System.out.print("Введите координату Y: ");
+                        float y = scanner.nextFloat();
+                        hero.move(new float[]{x, y});
+                        break;
 
-                case 5:
-                    System.out.println("Текущая позиция героя: (" +
-                            hero.getPosition()[0] + "," + hero.getPosition()[1] + ")");
-                    System.out.println("Текущая скорость передвижения: " + hero.getCurrentMoveSpeed());
-                    System.out.println();
-                    break;
+                    case 5:
+                        System.out.println("Текущая позиция героя: (" +
+                                hero.getPosition()[0] + "," + hero.getPosition()[1] + ")");
+                        System.out.println("Текущая скорость передвижения: " + hero.getCurrentMoveSpeed());
+                        System.out.println();
+                        break;
 
-                case 0:
-                    running = false;
-                    System.out.println("Выход из программы...");
-                    break;
+                    case 0:
+                        running = false;
+                        System.out.println("Выход из программы...");
+                        break;
 
-                default:
-                    System.out.println("Неизвестная команда! Попробуйте снова.\n");
-                    break;
+                    default:
+                        System.out.println("Неизвестная команда! Попробуйте снова.\n");
+                        break;
+                }
+            } else {
+                System.out.println("Ошибка! требуется ввести целое число!");
+                scanner.nextLine();
             }
         }
 
